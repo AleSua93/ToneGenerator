@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SignalGen2</string>
+    <string name="freq_label">Frequency</string>
 </resources>

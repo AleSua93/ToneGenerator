@@ -7,11 +7,19 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseIntArray;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.alejandronicolassuarez.signalgen2.waveForms.Sine;
 import com.alejandronicolassuarez.signalgen2.waveForms.Wave;
 
+import org.w3c.dom.Text;
+
+import java.security.Key;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.BlockingDeque;
@@ -23,6 +31,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private HashMap<Integer, Integer> freqConverter;
     private BlockingQueue<Short> blockingQueue = new LinkedBlockingDeque<>(10);
     ExecutorService executorService = Executors.newFixedThreadPool(2);
     private int bufferSize = 512;
@@ -31,13 +40,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        generateHashmap();
 
         final Wave wave = new Sine();
-        wave.setFrequency(1000);
 
-        SeekBar freqBar = findViewById(R.id.freqBar);
-        freqBar.setMax(10000);
-        freqBar.setOnSeekBarChangeListener(new SeekBarListener(wave));
+        final FreqTextView freqNumber = findViewById(R.id.freqNumber);
+
+        final SeekBar freqBar = findViewById(R.id.freqBar);
+        freqBar.setMax(Wave.MAX_FREQ);
+        freqBar.setOnSeekBarChangeListener(new SeekBarListener(wave, freqNumber));
+        freqBar.setProgress(0);
+        freqBar.setProgress(freqConverter.get(500));
+
+
+        freqNumber.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        keyCode == KeyEvent.KEYCODE_ENTER){
+                    Log.i(TAG, "input freq: " + freqNumber.getParsedInt());
+                    freqBar.setProgress(freqConverter.get(freqNumber.getParsedInt()));
+                    return true;
+                }
+                return false;
+            }
+        });
 
         final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 Wave.SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO,
@@ -88,5 +115,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void generateHashmap(){
+        freqConverter = new HashMap<>();
+        for (int i = 0; i <= Wave.MAX_FREQ; i++){
+            int progress = (int) (20000*(Math.log10(i/20)/3));
+            freqConverter.put(i, progress);
+            Log.i(TAG, "generateHashmap: " + freqConverter.get(i));
+        }
     }
 }
