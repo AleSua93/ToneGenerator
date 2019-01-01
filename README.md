@@ -12,6 +12,8 @@ integers). Bear in mind that most phone speakers can't reliably reproduce lower 
 approximately) and human hearing usually rolls off at around 18kHz, so if you're not hearing anything
 it might be because of one of those reasons.
 
+As of now, the only available waveform is sinusoidal.
+
 ### Prerequisites
 
 * Android Minimun SDK: 5.0 (Lollipop)
