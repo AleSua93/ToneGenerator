@@ -9,11 +9,6 @@ public class Sine implements Wave {
     private double phase = 0;
 
     @Override
-    public int getFrequency(){
-        return frequency;
-    }
-
-    @Override
     public void setFrequency(int freq) {
         this.frequency = freq;
     }
@@ -26,11 +21,7 @@ public class Sine implements Wave {
         } else{
             phase += 2 * Math.PI * frequency / Wave.SAMPLE_RATE;
         }
-
-
         short sample =(short) (Short.MAX_VALUE * Math.sin(phase));
-
-
         return sample;
     }
 }

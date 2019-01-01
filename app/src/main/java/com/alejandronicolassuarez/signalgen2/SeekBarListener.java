@@ -21,11 +21,8 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        // This maps the progress to an exponential function, so that the slider is not linear
-        Log.i(TAG, "onProgressChanged");
-        int mappedProgress = (int) Math.ceil(Math.pow(10.0, progress*3.0/20000)*20);
-        wave.setFrequency(mappedProgress);
-        freqTextView.setText(String.valueOf(mappedProgress));
+        wave.setFrequency(progress);
+        freqTextView.setText(String.valueOf(progress));
     }
 
     @Override

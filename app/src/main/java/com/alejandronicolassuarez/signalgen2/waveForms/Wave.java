@@ -7,6 +7,5 @@ public interface Wave {
     static final int MAX_FREQ = 20000;
 
     void setFrequency(int freq);
-    int getFrequency();
     short getNextSample(int index);
 }
