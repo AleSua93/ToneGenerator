@@ -48,4 +48,18 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <Button
+        android:id="@+id/start_stop_button"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/play_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/freqBar" />
+
 </android.support.constraint.ConstraintLayout>

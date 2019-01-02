@@ -1,11 +1,7 @@
 package com.alejandronicolassuarez.signalgen2;
 
-import android.util.Log;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.alejandronicolassuarez.signalgen2.waveForms.Wave;
 
 public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 

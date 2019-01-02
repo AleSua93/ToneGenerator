@@ -3,27 +3,17 @@ package com.alejandronicolassuarez.signalgen2;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alejandronicolassuarez.signalgen2.waveForms.Sine;
-import com.alejandronicolassuarez.signalgen2.waveForms.Wave;
+import com.alejandronicolassuarez.signalgen2.tasks.GeneratorTask;
+import com.alejandronicolassuarez.signalgen2.tasks.PlayingTask;
 
-import org.w3c.dom.Text;
-
-import java.security.Key;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private BlockingQueue<Short> blockingQueue = new LinkedBlockingDeque<>(10);
     ExecutorService executorService = Executors.newFixedThreadPool(2);
     private int bufferSize = 512;
+    private Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Wave wave = new Sine();
+        final Wave wave = new Wave();
+        wave.setWaveForm(Wave.TYPE_SINE);
 
         final FreqTextView freqNumber = findViewById(R.id.freqNumber);
 
@@ -50,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         freqBar.setOnSeekBarChangeListener(new SeekBarListener(wave, freqNumber));
         freqBar.setProgress(0);
         freqBar.setProgress(500);
+
 
         // Listens for input on the frequency text box
         freqNumber.setOnKeyListener(new View.OnKeyListener() {
@@ -75,45 +68,32 @@ public class MainActivity extends AppCompatActivity {
                 AudioFormat.ENCODING_PCM_16BIT, 2*bufferSize,
                 AudioTrack.MODE_STREAM);
 
-        Runnable producerTask = new Runnable(){
-            @Override
-            public void run() {
-                try{
-                    int index = 0;
-                    short sample;
-                    while(true){
-                        sample = wave.getNextSample(index);
-                        // Put waits until a slot is free
-                        blockingQueue.put(sample);
 
-                        index++;
-                    }
-                } catch (InterruptedException ie){
-                    ie.printStackTrace();
-                }
-            }
-        };
-        Runnable consumerTask = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while(true) {
-                        short[] samples = new short[bufferSize];
-                        for (int i = 0; i < bufferSize; i++){
-                            samples[i] = blockingQueue.take();
-                        }
-                        audioTrack.write(samples, 0, 512);
-                        audioTrack.play();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        // The generation and reproduction of samples is achieved using a producer-consumer pattern.
+        // The first task is to generate the samples and store them in a queue
+        final GeneratorTask generatorTask = new GeneratorTask(blockingQueue, wave);
+        // The second task is to get samples from the queue and insert them into the audio buffer
+        // in chunks of 512 samples, to be reproduced
+        final PlayingTask playingTask = new PlayingTask(audioTrack, blockingQueue);
 
-        executorService.execute(producerTask);
-        executorService.execute(consumerTask);
-        executorService.shutdown();
+        playButton = findViewById(R.id.start_stop_button);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (generatorTask.isGenerating()) {
+                    generatorTask.stop();
+                    playButton.setText(R.string.play_button_text);
+                } else{
+                    executorService.execute(generatorTask);
+                    executorService.execute(playingTask);
+                    playButton.setText(R.string.stop_button_text);
+                    //executorService.shutdown();
+                }
+
+            }
+        });
+
+
     }
 
     @Override
