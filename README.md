@@ -48,7 +48,7 @@ wave. This is the logic implemented for sine wave generation.
 Using a Fourier expansion, a square wave can be represented as an infinite sum
 of sinusoidal waves:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=x_{square}(t)&space;=&space;A&space;*&space;\frac{4}{\pi}&space;\sum\limits_{n&space;=&space;0}^{\infty}&space;\frac{sin(2&space;\pi&space;(2&space;n&space;&plus;&space;1)&space;f&space;t)}{2&space;n&space;&plus;&space;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x&space;(t)&space;=&space;A&space;*&space;\frac{4}{\pi}&space;\sum\limits_{n&space;=&space;0}^{\infty}&space;\frac{sin(2&space;\pi&space;(2&space;n&space;&plus;&space;1)&space;f&space;t)}{2&space;n&space;&plus;&space;1}" title="x (t) = A * \frac{4}{\pi} \sum\limits_{n = 0}^{\infty} \frac{sin(2 \pi (2 n + 1) f t)}{2 n + 1}" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=x_{square}(t)&space;=&space;A&space;*&space;\frac{4}{\pi}&space;\sum\limits_{n&space;=&space;0}^{\infty}&space;\frac{sin(2&space;\pi&space;(2&space;n&space;&plus;&space;1)&space;f&space;t)}{2&space;n&space;&plus;&space;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_{square}(t)&space;=&space;A&space;*&space;\frac{4}{\pi}&space;\sum\limits_{n&space;=&space;0}^{\infty}&space;\frac{sin(2&space;\pi&space;(2&space;n&space;&plus;&space;1)&space;f&space;t)}{2&space;n&space;&plus;&space;1}" title="x_{square} (t) = A * \frac{4}{\pi} \sum\limits_{n = 0}^{\infty} \frac{sin(2 \pi (2 n + 1) f t)}{2 n + 1}" /></a>
 
 The generation of complex waves by adding their sinusoidal components is known as
 additive synthesis. The app generates square waves using this method, with a limited number of
