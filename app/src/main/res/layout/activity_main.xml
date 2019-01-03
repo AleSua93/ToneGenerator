@@ -62,4 +62,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/freqBar" />
 
+    <ImageButton
+        android:id="@+id/sineButton"
+        android:layout_width="94dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/sine_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/sine"
+        app:layout_constraintBottom_toTopOf="@+id/freqLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/squareButton"
+        android:layout_width="94dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/square_description"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/freqLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508"
+        app:srcCompat="@drawable/square" />
+
+    <ImageButton
+        android:id="@+id/sawtoothButton"
+        android:layout_width="94dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/sawtooth_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/sawtooth"
+        app:layout_constraintBottom_toTopOf="@+id/freqLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508" />
+
 </android.support.constraint.ConstraintLayout>

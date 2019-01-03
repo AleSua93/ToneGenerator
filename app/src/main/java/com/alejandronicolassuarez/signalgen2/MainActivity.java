@@ -3,11 +3,13 @@ package com.alejandronicolassuarez.signalgen2;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         freqBar.setOnSeekBarChangeListener(new SeekBarListener(wave, freqNumber));
         freqBar.setProgress(0);
         freqBar.setProgress(500);
-
 
         // Listens for input on the frequency text box
         freqNumber.setOnKeyListener(new View.OnKeyListener() {
@@ -87,12 +88,28 @@ public class MainActivity extends AppCompatActivity {
                     executorService.execute(generatorTask);
                     executorService.execute(playingTask);
                     playButton.setText(R.string.stop_button_text);
-                    //executorService.shutdown();
                 }
 
             }
         });
 
+        ImageButton sineButton = findViewById(R.id.sineButton);
+        ImageButton squareButton = findViewById(R.id.squareButton);
+        ImageButton sawButton = findViewById(R.id.sawtoothButton);
+
+        sineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wave.setWaveForm(Wave.TYPE_SINE);
+            }
+        });
+
+        squareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wave.setWaveForm(Wave.TYPE_SQUARE);
+            }
+        });
 
     }
 

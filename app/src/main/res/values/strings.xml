@@ -4,4 +4,8 @@
     <string name="play_button_text">Start</string>
     <string name="stop_button_text">Stop</string>
     <string name="invalid_input">Invalid input</string>
+
+    <string name="sine_description">Sine wave toggle button</string>
+    <string name="square_description">Square wave toggle button</string>
+    <string name="sawtooth_description">Sawtooth wave toggle button</string>
 </resources>
