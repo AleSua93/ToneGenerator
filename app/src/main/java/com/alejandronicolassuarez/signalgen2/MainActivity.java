@@ -1,5 +1,7 @@
 package com.alejandronicolassuarez.signalgen2;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -9,9 +11,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.alejandronicolassuarez.signalgen2.tasks.GeneratorTask;
 import com.alejandronicolassuarez.signalgen2.tasks.PlayingTask;
@@ -93,14 +97,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton sineButton = findViewById(R.id.sineButton);
-        ImageButton squareButton = findViewById(R.id.squareButton);
-        ImageButton sawButton = findViewById(R.id.sawtoothButton);
+        final ImageButton sineButton = findViewById(R.id.sineButton);
+        final ImageButton squareButton = findViewById(R.id.squareButton);
+        final ImageButton sawButton = findViewById(R.id.sawtoothButton);
 
         sineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 wave.setWaveForm(Wave.TYPE_SINE);
+                sineButton.setImageDrawable(getResources().getDrawable(R.drawable.sine_selected));
+                squareButton.setImageDrawable(getResources().getDrawable(R.drawable.square));
+                sawButton.setImageDrawable(getResources().getDrawable(R.drawable.sawtooth));
             }
         });
 
@@ -108,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 wave.setWaveForm(Wave.TYPE_SQUARE);
+                sineButton.setImageDrawable(getResources().getDrawable(R.drawable.sine));
+                squareButton.setImageDrawable(getResources().getDrawable(R.drawable.square_selected));
+                sawButton.setImageDrawable(getResources().getDrawable(R.drawable.sawtooth));
             }
         });
 
@@ -115,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 wave.setWaveForm(Wave.TYPE_SAWTOOTH);
+                sineButton.setImageDrawable(getResources().getDrawable(R.drawable.sine));
+                squareButton.setImageDrawable(getResources().getDrawable(R.drawable.square));
+                sawButton.setImageDrawable(getResources().getDrawable(R.drawable.sawtooth_selected));
             }
         });
 

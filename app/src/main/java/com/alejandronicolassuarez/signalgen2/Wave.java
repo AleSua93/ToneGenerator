@@ -18,8 +18,8 @@ public class Wave{
     private double sinePhase = 0;
     private int numberOfSquareHarmonics = 10;
     private double[] squarePhases = new double[numberOfSquareHarmonics];
-    private int numberofSawHarmonics = 10;
-    private double[] sawPhases = new double[numberofSawHarmonics];
+    private int numberOfSawHarmonics = 10;
+    private double[] sawPhases = new double[numberOfSawHarmonics];
 
     public void setFrequency(int freq) {
         this.frequency = freq;
@@ -51,12 +51,7 @@ public class Wave{
     }
 
     private double getNextSineSample(){
-        if (sinePhase < 0.0 && (sinePhase + 2 * Math.PI * frequency / Wave.SAMPLE_RATE) > 0.0) {
-            sinePhase = 0;
-            Log.i(TAG, "Phase reset");
-        } else{
-            sinePhase += 2 * Math.PI * frequency / Wave.SAMPLE_RATE;
-        }
+        sinePhase += 2 * Math.PI * frequency / Wave.SAMPLE_RATE;
         return Math.sin(sinePhase);
     }
 
@@ -76,7 +71,7 @@ public class Wave{
     private short getNextSawSample(){
         double sample = 0;
         double amplitude = 1/2 - 1/Math.PI;
-        for (int i = 0; i < numberofSawHarmonics; i++){
+        for (int i = 0; i < numberOfSawHarmonics; i++){
             if (frequency * (i+1) >= Wave.MAX_FREQ)
                 break;
             sawPhases[i] += 2 * Math.PI * frequency* (i+1) / Wave.SAMPLE_RATE;

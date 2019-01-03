@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SignalGen2</string>
+    <string name="app_name">ToneGenerator</string>
     <string name="freq_label">Frequency (Hz)</string>
     <string name="play_button_text">Start</string>
     <string name="stop_button_text">Stop</string>
