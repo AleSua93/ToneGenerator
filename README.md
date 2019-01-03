@@ -11,7 +11,7 @@ waveforms between 20 Hz and 20 kHz.
 The frequency can be changed by either adjusting the slider or by using the textbox (it only accepts
 integers).
 
-As of now, the only available waveform is a sine wave.
+Waveform can be selected by tapping the corresponding button.
 
 ### Prerequisites
 
