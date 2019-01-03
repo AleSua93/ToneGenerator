@@ -111,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wave.setWaveForm(Wave.TYPE_SAWTOOTH);
+            }
+        });
+
     }
 
     @Override
