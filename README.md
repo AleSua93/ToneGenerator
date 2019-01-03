@@ -23,11 +23,11 @@ Three types of waves are generated: sine waves, square waves, and sawtooth waves
 Sine waves are the most basic type. The equation that defines their behaviour
 is as follows:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=x(t)&space;=&space;A*sin(2&space;\pi&space;f&space;t&space;&plus;&space;\phi)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x(t)&space;=&space;A*sin(2&space;\pi&space;f&space;t&space;&plus;&space;\phi)" title="x(t) = A*sin(2 \pi f t + \phi)" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=x_{sine}(t)&space;=&space;A*sin(2&space;\pi&space;f&space;t&space;&plus;&space;\phi)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_{sine}(t)&space;=&space;A*sin(2&space;\pi&space;f&space;t&space;&plus;&space;\phi)" title="x_{sine}(t) = A*sin(2 \pi f t + \phi)" /></a>
 
 However, for practical purposes, it is more useful to define it as:
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=x(t)&space;=&space;A*sin(\phi&space;(t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x(t)&space;=&space;A*sin(\phi&space;(t))" title="x(t) = A*sin(\phi (t))" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=x_{sine}(t)&space;=&space;A*sin(\phi&space;(t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_{sine}(t)&space;=&space;A*sin(\phi&space;(t))" title="x_{sine}(t) = A*sin(\phi (t))" /></a>
 
 Where
 
@@ -38,10 +38,12 @@ And
 <a href="https://www.codecogs.com/eqnedit.php?latex=\phi&space;(t_1)&space;=&space;\phi&space;(t_0)&space;&plus;&space;2&space;\pi&space;f&space;\Delta&space;t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\phi&space;(t_1)&space;=&space;\phi&space;(t_0)&space;&plus;&space;2&space;\pi&space;f&space;\Delta&space;t" title="\phi (t_1) = \phi (t_0) + 2 \pi f \Delta t" /></a>
 
 Where <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;t&space;\\" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;t&space;\\" title="\Delta t \\" /></a>
-is the minimum step between samples.
+is the minimum step between samples. Generalizing this equation, we obtain:
 
-This is known as a phase accumulator, since we are defining each sample of the sine wave
-in relation to the previous sample, in a cumulative sum. The advantage of this approach
+<a href="https://www.codecogs.com/eqnedit.php?latex=\phi&space;(t_n)&space;=&space;\phi&space;(t_{n-1})&space;&plus;&space;2&space;\pi&space;f&space;\Delta&space;t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\phi&space;(t_n)&space;=&space;\phi&space;(t_{n-1})&space;&plus;&space;2&space;\pi&space;f&space;\Delta&space;t" title="\phi (t_n) = \phi (t_{n-1}) + 2 \pi f \Delta t" /></a>
+
+This is known as a phase accumulator, since we are defining each phase
+in relation to the previous phase, in a cumulative sum. The advantage of this approach
 is that we can change the frequency dynamically and there will be no discontinuities in the generated
 wave. This is the logic implemented for sine wave generation.
 
