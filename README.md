@@ -1,6 +1,7 @@
 # Tone Generator
 
-Pure tone signal generator for android devices. 
+Signal generator for android devices. Can produce sine, square, and sawtooth
+waveforms between 20 Hz and 20 kHz.
 
 ## Getting Started
 
